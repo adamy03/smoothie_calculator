@@ -21,6 +21,8 @@ class toothbrush {
     }
 }
 
+// whats good 
+
 class ElectricToothbrush extends Toothebrush { 
     #watts;
     constructor(brand, bristles, watts) {
