@@ -12,9 +12,11 @@ require("dotenv").config({
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const { url } = require("inspector");
 
+
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(express.static('templates'));
 
 const homeURL = `http://localhost:${portNumber}`
 
@@ -28,8 +30,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/smoothieMaker", (req, res) => {
-    res.render("smoothierMaker", {url: homeURL+"/smoothieMaker"});
+    res.render("smoothieMaker", {url: homeURL+"/smoothieMaker"});
 });
+
 
 app.post("/smoothieMaker", (req, res) => {
     const {name} = req.body; // #TODO
@@ -51,7 +54,7 @@ app.post("/smoothieMaker", (req, res) => {
         } finally {
             await client.close();
             res.render("smoothieMaker", {
-                msg: name,
+                name: name,
                 email: email,
                 gpa: gpa,
                 background: background,
@@ -63,11 +66,19 @@ app.post("/smoothieMaker", (req, res) => {
 });
 
 app.get("/smoothieGetter", (req, res) => {
-    res.render("apply", {url: homeURL+"/apply"});
+    res.render("smoothieGetter", {
+        url: homeURL+"/smoothieGetter",
+        name: "",
+        ingredientsTable: "",
+        nutritionTable: ""
+    });
 });
 
 app.post("/smoothieGetter", (req, res) => {
     const {name} = req.body;
+    let ingredientsTable = [];
+    let nutritionTable = []; 
+
     (async () => {
         const databaseName = process.env.MONGO_DB_NAME;
         const collectionName = process.env.MONGO_COLLECTION
@@ -81,24 +92,23 @@ app.post("/smoothieGetter", (req, res) => {
             let filter = {recipieName: name}; // #TODO
             const result = await collection.findOne(filter);
 
-            let ingredientsTable = [];
-            let nutritionTable = [];
-
             if (!result) {
-                name = None
                 msg = "No smoothie found with that name";
-                ingredientsTable = [];
-                nutritionTable = [];
+                ingredientsTable = "";
+                nutritionTable = "";
             }
             else {
-                student = {name: result.name, email: result.email, gpa: result.gpa, background: result.background};
+                name = result.recipieName;
+                ingredientsTable = result.ingredients
+                nutritionTable = result.nutritionTable 
             }
          } catch (e) {
             console.error(e);
          } finally {
             await client.close();
-            res.render("processReviewApplication", {
-                msg: name,
+            res.render("smoothieGetter", {
+                url: homeURL+"/smoothieGetter",
+                name: name,
                 ingredientsTable: ingredientsTable,
                 nutritionTable: nutritionTable,
             });
@@ -106,5 +116,11 @@ app.post("/smoothieGetter", (req, res) => {
     })();
 }
 );
+
+function getIngredientTable(ingredientsData) { 
+    tableStr = "<div>"
+    
+    tableStr += "</div>"
+}
 
 app.listen(portNumber);

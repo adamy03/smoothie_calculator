@@ -4,13 +4,14 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Get Smoothie Recipie</title>
+	<link rel="stylesheet" href="style.css">>
 </head>
 
 <body>
 	<h1>Get Smoothie Recipie</h1>
 	<form action=<%- url %> method="post">
 		<fieldset>
-			<label>Smoothie Name: <input type="text" name="name"  placeholder="sample smoothie"></label>
+			<label>Smoothie Name: <input type="text" name="name"  placeholder="smoothie name"></label>
 		</fieldset>
 		<br>
 		<input type="reset" />
@@ -18,10 +19,11 @@
 	</form>
     <div>
         <h2><%- name %></h2>
-        <h2>Ingredients</h2>
-
-
+		<%- ingredientsTable %>
+		<%- nutritionTable  %>
     </div>
 </body>
+
+<div><a href="/">Back to home</a></div>
 
 </html>
