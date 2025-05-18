@@ -7,7 +7,7 @@ require("dotenv").config({
    path: path.resolve(__dirname, "credentialsDontPost/.env"),
 });
 
-const bodyParser = require("body-parser"); /* To handle post parameters */
+const bodyParser = require("body-parser"); 
 const app = express(); 
 const portNumber = 5005;
 const fruits = [
@@ -27,7 +27,6 @@ const fruits = [
 ]
 
 // make table, connect to mongo db, 
-
 require("dotenv").config({
    path: path.resolve(__dirname, ".env"),
 });
@@ -40,18 +39,21 @@ app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('templates'));
 
-const homeURL = `https://smoothie-calculator.onrender.com`
+router = express.Router();
+
+// const homeURL = `https://smoothie-calculator.onrender.com`
+const homeURL = `http://localhost:${portNumber}`
 
 /* Rendering Page */
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
     res.render("index");
 });
 
-app.get("/smoothieMaker", (req, res) => {
+router.get("/smoothieMaker", (req, res) => {
     res.render("smoothieMaker", {msg: "", url: homeURL+"/smoothieMaker"});
 });
 
-app.post("/smoothieMaker", async (req, res) => {
+router.post("/smoothieMaker", async (req, res) => {
     const {strawberry, banana, pear, blackberry, kiwi, pineapple, fig, passionfruit, raspberry, mango, blueberry, apple, peach, smoothieName} = req.body;
     let fruits = {strawberry, banana, pear, blackberry, kiwi, pineapple, fig, passionfruit, raspberry, mango, blueberry, apple, peach};
 
@@ -87,9 +89,7 @@ app.post("/smoothieMaker", async (req, res) => {
     })();
 });
 
-app.get("/api/")
-
-app.get("/smoothieGetter", (req, res) => {
+router.get("/smoothieGetter", (req, res) => {
     res.render("smoothieGetter", {
         url: homeURL+"/smoothieGetter",
         name: "",
@@ -98,9 +98,7 @@ app.get("/smoothieGetter", (req, res) => {
     });
 });
 
-app.get("")
-
-app.post("/smoothieGetter", (req, res) => {
+router.post("/smoothieGetter", (req, res) => {
     const {name} = req.body;
     let msg = name;
     let ingredientsTable = [];
@@ -167,6 +165,12 @@ async function getNutrition(fruitJson) {
         }
         
     }
+    caloriesT = (caloriesT).toFixed(2);
+    fatT = (fatT).toFixed(2);
+    sugarT = (sugarT).toFixed(2);
+    carbohydratesT = (carbohydratesT).toFixed(2);
+    proteinT = (proteinT).toFixed(2);
+    
     return {caloriesT, fatT, sugarT, carbohydratesT, proteinT}
 }
 
@@ -194,4 +198,9 @@ function getNutritionTable(nutritionInfo) {
     return table;
 }
 
+router.use((request, response) => {
+    response.status(404).send("Resource Not Found (in building router)");
+});
+
 app.listen(portNumber);
+module.exports = router;
