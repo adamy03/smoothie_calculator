@@ -40,7 +40,7 @@ app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('templates'));
 
-const homeURL = `https://smoothie-calculator.onrender.com/`
+const homeURL = `https://smoothie-calculator.onrender.com`
 
 /* Rendering Page */
 app.get("/", (req, res) => {
