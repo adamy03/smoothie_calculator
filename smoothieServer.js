@@ -40,7 +40,7 @@ app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('templates'));
 
-const homeURL = `http://localhost:${portNumber}`
+const homeURL = `https://smoothie-calculator.onrender.com/`
 
 /* Rendering Page */
 app.get("/", (req, res) => {
@@ -194,4 +194,4 @@ function getNutritionTable(nutritionInfo) {
     return table;
 }
 
-app.listen(portNumber);
+app.listen(10000);
