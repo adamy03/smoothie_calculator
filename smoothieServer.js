@@ -2,6 +2,11 @@
 const express = require("express"); 
 const fs = require("fs");
 const path = require("path");
+
+require("dotenv").config({
+   path: path.resolve(__dirname, "credentialsDontPost/.env"),
+});
+
 const bodyParser = require("body-parser"); /* To handle post parameters */
 const app = express(); 
 const portNumber = 5005;
