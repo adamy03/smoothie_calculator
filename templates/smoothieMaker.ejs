@@ -55,20 +55,16 @@
 		</fieldset><br>
 
 		<fieldset>
-			<legend>
-				<strong>Save For Later</strong>
-			</legend>
 			<label>Recipe name:</label>
-			<input type="text" name="smoothieName" id="smoothieName">
+			<input type="text" name="smoothieName" id="smoothieName" required>
 		</fieldset>
 
 		<hr>
-		<button id="saveRecipe">Save Recipe</button> 
-		<!-- have option to name recipe -->
-
-		<input type="submit" value="Get Nutrition Info"/> 
+		<input type="reset" value="Reset"/>
+		<input type="submit" value="Save For Later"/> 
 	</form>
 </body>
+<div><%- msg %></div>
 
 <div><a href="/">Back to home</a></div>
 
