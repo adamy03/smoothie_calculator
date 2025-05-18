@@ -64,8 +64,9 @@ app.post("/smoothieMaker", (req, res) => {
     peach} = req.body
     
     let item = {strawberry, banana, pear, blackberry, kiwi, pineapple, fig, passionfruit, raspberry, mango, blueberry, apple, peach}
+    
+    
 
-    console.log(item);
     // const fruits = JSON.parse(req.body.toString()).filter(f => f > 0);
     // req.bodyforEach(element => {
     //     console.log(element)
