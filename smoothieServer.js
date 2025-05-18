@@ -40,13 +40,14 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static('templates'));
 
 router = express.Router();
+app.use("/", router);
 
 // const homeURL = `https://smoothie-calculator.onrender.com`
 const homeURL = `http://localhost:${portNumber}`
 
 /* Rendering Page */
-router.get("/", (req, res) => {
-    res.render("index");
+router.get("/", (request, response) => {
+    response.render("index")
 });
 
 router.get("/smoothieMaker", (req, res) => {

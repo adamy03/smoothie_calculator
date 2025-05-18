@@ -1,7 +1,7 @@
-Submitted by: Rose Smith (directory id: superterp)
-Group Members: Rose Smith (superterp), Peter Santos (pmegaterp)
-App Description: Allow users to find images, songs of an author and store the results.
-YouTube Video Link: https://www.youtube.com/MyAmazingAPP
-APIs: VideoApp (http:notrealvideoapp.what), SoundApp (http:notreadlsoundapp.what)
-Contact Email:  superterp@notreal.address.what
-Deployed App Link: https://notreal.what.terpNel/myApp
+Submitted by: Adam Yang
+Group Members: Adam Yang (ayang115), Mia Weckel (mweckel)
+App Description: Website for saving smoothie recipies and calculating nutrition facts using and API. 
+YouTube Video Link: 
+APIs: Fruityvice(https://www.fruityvice.com/)
+Contact Email: ayang115@terpmail.umd.edu
+Deployed App Link: 
