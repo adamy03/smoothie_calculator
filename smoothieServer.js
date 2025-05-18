@@ -42,8 +42,8 @@ app.use(express.static('templates'));
 router = express.Router();
 app.use("/", router);
 
-// const homeURL = `https://smoothie-calculator.onrender.com`
-const homeURL = `http://localhost:${portNumber}`
+const homeURL = `https://smoothie-calculator.onrender.com`
+// const homeURL = `http://localhost:${portNumber}`
 
 /* Rendering Page */
 router.get("/", (request, response) => {
