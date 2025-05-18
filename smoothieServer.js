@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser"); /* To handle post parameters */
 const app = express(); 
-const portNumber = 5000;
+const portNumber = 5005;
 
 require("dotenv").config({
    path: path.resolve(__dirname, ".env"),
@@ -74,6 +74,8 @@ app.get("/smoothieGetter", (req, res) => {
     });
 });
 
+app.get("")
+
 app.post("/smoothieGetter", (req, res) => {
     const {name} = req.body;
     let ingredientsTable = [];
@@ -121,6 +123,26 @@ function getIngredientTable(ingredientsData) {
     tableStr = "<div>"
     
     tableStr += "</div>"
+}
+
+async function getNutrition(fruitJson) {
+    // MAKE RETURN IN TABLE FORM LATER
+    let caloriesT, fatT, sugarT, carbohydratesT, proteinT = 0;
+    for (fruit in fruitJson) { // need to use try catch? // NAMES WILL BE DIFF?
+        const name = Object.keys(fruit)[0]; // get name of fruit
+        const count = fruit[name]; // get quantity of fruit 
+    
+        const res = await fetch(`https://www.fruityvice.com/api/fruit/${name}`);
+        const data = await res.json();
+
+        const {calories, fat, sugar, carbohydrates, protein } = data.nutritions;
+        caloriesT += calories * count;
+        fatT += fat * count;
+        sugarT += sugar * count;
+        carbohydratesT += carbohydrates * count;
+        proteinT += protein * count;
+    }
+    crossOriginIsolated.log("cals test: ${caloriesT}");
 }
 
 app.listen(portNumber);
